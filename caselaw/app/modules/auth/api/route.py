@@ -2,22 +2,6 @@ from flask import jsonify, redirect, request, session, url_for
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, jwt_required
 from app.db.models import Client, Lawyer, Role, User, db
 from app.modules.auth import auth_bp
-from flask_dance.contrib.google import make_google_blueprint, google
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-# Setup Google OAuth Blueprint
-google_bp = make_google_blueprint(
-    client_id=os.environ.get("GOOGLE_OAUTH2_KEY"),
-    client_secret=os.environ.get("GOOGLE_OAUTH2_SECRET"),
-    scope=["profile", "email"],
-    redirect_to="google_login_callback"
-)
-
-# Register the Google blueprint with the main app
-auth_bp.register_blueprint(google_bp, url_prefix="/google_login")
 
 @auth_bp.route('/register', methods=['POST'])
 def register():
