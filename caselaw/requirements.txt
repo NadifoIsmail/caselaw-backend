@@ -1,0 +1,19 @@
+Flask
+Flask-SQLAlchemy
+python-dotenv
+pytest
+gunicorn
+flasgger
+flask-bcrypt
+flask-login
+flask-jwt-extended
+flask-rbac
+flask-restful
+flask-cors
+flask-migrate
+flask-principal
+# flask-uploads
+# flask-socketio
+# flask-caching
+
+
