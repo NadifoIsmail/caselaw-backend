@@ -48,6 +48,7 @@ def get_available_cases():
         return jsonify({"message": "No available cases at the moment"}), 404
 
     return jsonify({
+        "lawyer_id": lawyer_id,
         "available_cases": [case.to_json() for case in available_cases]
     }), 200
 
@@ -66,5 +67,6 @@ def get_assigned_cases():
         return jsonify({"message": "No cases assigned to this lawyer"}), 404
 
     return jsonify({
+        "lawyer_id": lawyer_id,
         "assigned_cases": [case.to_json() for case in assigned_cases]
     }), 200
