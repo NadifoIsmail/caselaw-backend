@@ -90,10 +90,10 @@ class User(db.Model):
         return False
 
     def get_profile_image_url(self):
-        """Get full URL for profile image"""
-        upload_folder = current_app.config['UPLOAD_FOLDER']
-        static_path = upload_folder.replace("static/", "")  
-        return url_for('static', filename=f"{static_path}/{self.profile_image}", _external=True)
+        if not self.profile_image:
+            return url_for('static', filename=current_app.config['DEFAULT_PROFILE_IMAGE'], _external=True)
+
+        return url_for('static', filename=f"uploads/{self.profile_image}", _external=True)
     
     def to_json(self):
         return {
@@ -102,9 +102,7 @@ class User(db.Model):
             'firstname': self.firstname,
             'lastname': self.lastname,
             'roles': [role.name for role in self.roles],
-            # 'created_at': self.created_at.isoformat(),
-            # 'updated_at': self.updated_at.isoformat(),
-            # 'type': self.type
+            'profile_image': self.get_profile_image_url(),
         }
 
 class Role(db.Model):
@@ -326,11 +324,9 @@ class Case(db.Model):
             'description': self.description,
             'category': self.category,
             'status': self.status,
-            'created_at': self.created_at.isoformat(),
             'updated_at': self.updated_at.isoformat(),
-            'client_id': self.client_id,
-            'lawyer_id': self.lawyer_id,
-            'documents': [doc.id for doc in self.documents]
+            'client_id': self.get_client().to_json().get('firstname') + " " + self.get_client().to_json().get('lastname') if self.get_client() else None,
+            'lawyer_id': self.get_lawyer().to_json().get('firstname') + " " + self.get_lawyer().to_json().get('lastname') if self.get_client() else None,
         }
 
 class Document(db.Model):
