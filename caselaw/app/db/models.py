@@ -324,7 +324,7 @@ class Case(db.Model):
             'description': self.description,
             'category': self.category,
             'status': self.status,
-            'updated_at': self.updated_at.isoformat(),
+            'updated_at': self.updated_at,
             'client_id': self.get_client().to_json().get('firstname') + " " + self.get_client().to_json().get('lastname') if self.get_client() else None,
             'lawyer_id': self.get_lawyer().to_json().get('firstname') + " " + self.get_lawyer().to_json().get('lastname') if self.get_client() else None,
         }
