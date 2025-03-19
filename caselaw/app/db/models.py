@@ -324,9 +324,9 @@ class Case(db.Model):
             'description': self.description,
             'category': self.category,
             'status': self.status,
-            'updated_at': self.updated_at,
-            'client_id': self.get_client().to_json().get('firstname') + " " + self.get_client().to_json().get('lastname') if self.get_client() else None,
-            'lawyer_id': self.get_lawyer().to_json().get('firstname') + " " + self.get_lawyer().to_json().get('lastname') if self.get_client() else None,
+            'updated': self.updated_at,
+            'client': self.get_client().to_json().get('firstname') + " " + self.get_client().to_json().get('lastname') if self.get_client() else None,
+            'lawyer': self.get_lawyer().to_json().get('firstname') + " " + self.get_lawyer().to_json().get('lastname') if self.get_lawyer() else None,
         }
 
 class Document(db.Model):
