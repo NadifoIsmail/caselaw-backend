@@ -9,7 +9,7 @@ def register():
     data = request.get_json()
     
     # Check if required fields are present
-    required_fields = ['firstname', 'lastname', 'email', 'password', 'userType']
+    required_fields = ['firstName', 'lastName', 'email', 'password', 'userType']
 
     if data.get('userType') == 'lawyer':
         required_fields.append('barNumber')
@@ -33,8 +33,8 @@ def register():
         if data['userType'] == 'client':
             new_user = Client(
                 email=data['email'],
-                firstname=data['firstname'],
-                lastname=data['lastname'],
+                firstname=data['firstName'],
+                lastname=data['lastName'],
                 phone=data.get('phone', ''),
                 address=data.get('address', ''),
                 location=data.get('location', '')
@@ -44,8 +44,8 @@ def register():
         elif data['userType'] == 'lawyer':
             new_user = Lawyer(
                 email=data['email'],
-                firstname=data['firstname'],
-                lastname=data['lastname'],
+                firstname=data['firstName'],
+                lastname=data['lastName'],
                 bar_number=data['barNumber'],
                 specialization=data.get('specialization', '')
             )
@@ -61,9 +61,10 @@ def register():
         user_role = Role.query.filter_by(name=data['userType']).first()
         if not user_role:
             # Create the role if it doesn't exist
-            user_role = Role(name=data['userType'])
-            db.session.add(user_role)
-            db.session.flush()
+            return jsonify({
+                'status': 'error',
+                'message': f'Role not found: {data["userType"]}'
+            })
             
         new_user.add_role(user_role)
 

@@ -1,4 +1,4 @@
-Flask
+pipFlask
 Flask-SQLAlchemy
 python-dotenv
 pytest
@@ -15,5 +15,6 @@ flask-principal
 # flask-uploads
 # flask-socketio
 # flask-caching
+flask-dance
 
 

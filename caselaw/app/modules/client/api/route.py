@@ -92,7 +92,7 @@ def handle_submitted_case(user_id:str):
     
 
 @client_bp.route('/cases/<string:user_id>',methods=['GET'])
-@jwt_required()
+# @jwt_required()
 def get_client_cases(user_id:str):
     try:
         client = Client.query.get(user_id)
